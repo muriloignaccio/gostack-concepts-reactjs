@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import api from './services/api';
+import Repository from './components/Repository';
 
 import './styles.css';
 
@@ -27,7 +28,6 @@ function App() {
 
   useEffect(() => {
     api.get('repositories').then(({ data }) => {
-      console.log(data);
       setRepositories(data);
     });
   }, []);
@@ -35,11 +35,12 @@ function App() {
   return (
     <div>
       <ul data-testid='repository-list'>
-        {repositories.map(({ id, title }) => (
-          <li key={id}>
-            {title}
-            <button onClick={() => handleRemoveRepository(id)}>Remover</button>
-          </li>
+        {repositories.map((repository) => (
+          <Repository
+            key={repository.id}
+            data={repository}
+            handleRemoveRepository={handleRemoveRepository}
+          />
         ))}
       </ul>
 
