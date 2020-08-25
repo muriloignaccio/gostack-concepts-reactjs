@@ -17,7 +17,13 @@ function App() {
     setRepositories([...repositories, repository]);
   }
 
-  async function handleRemoveRepository(id) {}
+  async function handleRemoveRepository(id) {
+    await api.delete(`repositories/${id}`);
+
+    const updatedRepositories = repositories.filter((repo) => repo.id !== id);
+
+    setRepositories(updatedRepositories);
+  }
 
   useEffect(() => {
     api.get('repositories').then(({ data }) => {
