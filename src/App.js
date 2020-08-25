@@ -7,7 +7,15 @@ import './styles.css';
 function App() {
   const [repositories, setRepositories] = useState([]);
 
-  async function handleAddRepository() {}
+  async function handleAddRepository() {
+    const { data: repository } = await api.post('repositories', {
+      title: 'Conceitos React.js',
+      url: 'https://github.com',
+      techs: ['React.js', 'Node.js'],
+    });
+
+    setRepositories([...repositories, repository]);
+  }
 
   async function handleRemoveRepository(id) {}
 
